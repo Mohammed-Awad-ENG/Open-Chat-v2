@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Chat</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <meta name="description"
+        content="Open Chat - Free online chat platform to connect with friends, join chat rooms, and send messages.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/join.css">
+</head>
+
+<body class="theme-default">
+    <button class="theme-toggle" id="theme-toggle" title="Switch theme" aria-label="Switch theme">
+        <span class="theme-toggle-icon" id="theme-icon">◑</span>
+        <span class="theme-toggle-label" id="theme-label">DEFAULT</span>
+    </button>
+    <form class="sign-in-form" id="join-form" novalidate>
+        <h1 class="form-title">JOIN CHAT</h1>
+        <div class="avatar-section">
+            <div class="avatar-preview-wrap">
+                <div class="avatar-preview" id="avatar-preview">😀</div>
+                <button type="button" class="avatar-change-btn" id="avatar-toggle">CHANGE</button>
+            </div>
+            <div class="avatar-grid hidden" id="avatar-grid"></div>
+        </div>
+        <div class="input-box">
+            <input type="text" id="name-input" placeholder=" " autocomplete="off" maxlength="20">
+            <label for="name-input">Your Name</label>
+        </div>
+        <div class="mode-selector">
+            <button type="button" class="mode-btn active" data-mode="rooms" id="mode-rooms">🏠 Rooms</button>
+            <button type="button" class="mode-btn" data-mode="dm" id="mode-dm">👤 1 v 1</button>
+        </div>
+        <button class="sign-in-btn" type="submit">JOIN</button>
+    </form>
+    <script type="module" src="../JS/join.js"></script>
+</body>
+
+</html>

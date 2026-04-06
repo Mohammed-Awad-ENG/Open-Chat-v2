@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1v1 Chat</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="stylesheet" href="../CSS/global_style.css">
+    <link class="chat-style" rel="stylesheet" href="../CSS/Neo_brutalism_style.css">
+    <link rel="stylesheet" href="../CSS/Theme_mini_preview.css">
+    <link rel="stylesheet" href="../CSS/globe_style_fix.css">
+    <link rel="stylesheet" href="../CSS/dm-page.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <!-- ── Find New Match countdown ring — top right ─────────────────────── -->
+    <div id="find-new-wrap">
+        <div class="find-new-ring-wrap" id="find-new-ring-wrap" title="Find a new match (available after 60s)">
+            <svg class="find-new-ring-svg" viewBox="0 0 64 64">
+                <circle class="find-new-ring-bg" cx="32" cy="32" r="27.2" />
+                <circle class="find-new-ring-fg" id="find-new-ring-fg" cx="32" cy="32" r="27.2" />
+            </svg>
+            <div class="find-new-btn-inner" id="find-new-inner">
+                <span class="find-new-cd" id="find-new-cd">60s</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-image"></div>
+
+    <!-- ── Settings Panel ────────────────────────────────────────────────── -->
+    <aside class="settings-box">
+
+        <button class="toggle-settings" aria-label="Toggle settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 50">
+                <path d="M47.16,21.221l-5.91-0.966c-0.346-1.186-0.819-2.326-1.411-3.405l3.45-4.917
+                c0.279-0.397,0.231-0.938-0.112-1.282l-3.889-3.887c-0.347-0.346-0.893-0.391-1.291-0.104l-4.843,3.481
+                c-1.089-0.602-2.239-1.08-3.432-1.427l-1.031-5.886C28.607,2.35,28.192,2,27.706,2h-5.5
+                c-0.49,0-0.908,0.355-0.987,0.839l-0.956,5.854c-1.2,0.345-2.352,0.818-3.437,1.412l-4.83-3.45
+                c-0.399-0.285-0.942-0.239-1.289,0.106L6.82,10.648c-0.343,0.343-0.391,0.883-0.112,1.28l3.399,4.863
+                c-0.605,1.095-1.087,2.254-1.438,3.46l-5.831,0.971C2.356,21.302,2,21.72,2,22.208v5.5
+                c0,0.485,0.348,0.9,0.825,0.985l5.831,1.034c0.349,1.203,0.831,2.362,1.438,3.46l-3.441,4.813
+                c-0.284,0.397-0.239,0.942,0.106,1.289l3.888,3.891c0.343,0.343,0.884,0.391,1.281,0.112l4.87-3.411
+                c1.093,0.601,2.248,1.078,3.445,1.424l0.976,5.861C21.3,47.647,21.717,48,22.206,48h5.5
+                c0.485,0,0.9-0.348,0.984-0.825l1.045-5.89c1.199-0.353,2.348-0.833,3.43-1.435l4.905,3.441
+                c0.398,0.281,0.938,0.232,1.282-0.111l3.888-3.891c0.346-0.347,0.391-0.894,0.104-1.292l-3.498-4.857
+                c0.593-1.08,1.064-2.222,1.407-3.408l5.918-1.039c0.479-0.084,0.827-0.5,0.827-0.985v-5.5
+                C47.999,21.718,47.644,21.3,47.16,21.221z
+                M25,32c-3.866,0-7-3.134-7-7c0-3.866,3.134-7,7-7s7,3.134,7,7C32,28.866,28.866,32,25,32z" />
+            </svg>
+        </button>
+
+        <div class="settings-scroll-inner">
+
+            <div class="settings-header">
+                <h2 class="settings-title">Settings</h2>
+            </div>
+
+            <!-- Theme Selector -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Theme</h3>
+                <div class="theme-grid">
+
+                    <button class="theme-card active" data-theme="Neo_brutalism_style" onclick="applyTheme(this)">
+                        <div class="theme-preview neo-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Neo Brutal</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="style" onclick="applyTheme(this)">
+                        <div class="theme-preview soft-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Soft Chat</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="retro_futurism" onclick="applyTheme(this)">
+                        <div class="theme-preview rf-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Retro Future</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="glassmorphism" onclick="applyTheme(this)">
+                        <div class="theme-preview gl-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Glass</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="cyberpunk_terminal" onclick="applyTheme(this)">
+                        <div class="theme-preview cp-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Cyberpunk</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="bauhaus" onclick="applyTheme(this)">
+                        <div class="theme-preview bh-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Bauhaus</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="skeuomorphic_paper" onclick="applyTheme(this)">
+                        <div class="theme-preview sk-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Paper</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="game_vibe" onclick="applyTheme(this)">
+                        <div class="theme-preview gv-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Game Vibe</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="neon_noir" onclick="applyTheme(this)">
+                        <div class="theme-preview nn-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Neon Noir</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="lofi_cozy" onclick="applyTheme(this)">
+                        <div class="theme-preview lf-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Lofi Cozy</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Background Image -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Background Image</h3>
+                <div class="bg-btn-row">
+                    <button type="button" class="img-toggle-btn random-image img-op">
+                        <svg width="20" height="20" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="10" width="90" height="80" rx="4" stroke="currentColor" stroke-width="5"
+                                fill="rgba(0,150,200,0.18)" />
+                            <circle cx="30" cy="30" r="8" fill="#FFB74D" stroke="currentColor" stroke-width="3" />
+                            <path d="M5 85 L35 55 L65 85" fill="#2E7D32" stroke="currentColor" stroke-width="4"
+                                stroke-linejoin="round" />
+                            <path d="M25 90 L60 40 L95 90" fill="#4CAF50" stroke="currentColor" stroke-width="5"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>Random</span>
+                    </button>
+                    <input type="file" id="bg-upload-input" accept="image/*" style="display:none">
+                    <button type="button" class="img-toggle-btn upload-image-btn" id="bgUploadBtn"
+                        title="Upload image from your device"
+                        onclick="document.getElementById('bg-upload-input').click()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        <span>Upload</span>
+                        <span class="clear-img" id="bgClearBtn" title="Remove image">×</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Others Bubble Color -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Others' Bubble Color</h3>
+                <div class="swatch-row others-color-list">
+                    <span class="swatch others-default-color" data-color="#f5f0e8" title="Cream"
+                        style="background:#f5f0e8"></span>
+                    <span class="swatch" data-color="#efefef" title="Light Grey" style="background:#efefef"></span>
+                    <span class="swatch" data-color="#ff9800" title="Orange" style="background:#ff9800"></span>
+                    <span class="swatch" data-color="#e91e63" title="Pink" style="background:#e91e63"></span>
+                    <span class="swatch" data-color="#009688" title="Teal" style="background:#009688"></span>
+                    <span class="swatch" data-color="#03a9f4" title="Sky" style="background:#03a9f4"></span>
+                    <span class="swatch" data-color="#4caf50" title="Green" style="background:#4caf50"></span>
+                </div>
+            </div>
+
+            <!-- My Bubble Color -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Your Bubble Color</h3>
+                <div class="swatch-row my-color-list">
+                    <span class="swatch my-default-color" data-color="#FFE000" title="Yellow"
+                        style="background:#FFE000"></span>
+                    <span class="swatch" data-color="#ff9800" title="Orange" style="background:#ff9800"></span>
+                    <span class="swatch" data-color="#e91e63" title="Pink" style="background:#e91e63"></span>
+                    <span class="swatch" data-color="#009688" title="Teal" style="background:#009688"></span>
+                    <span class="swatch" data-color="#03a9f4" title="Sky" style="background:#03a9f4"></span>
+                    <span class="swatch" data-color="#4caf50" title="Green" style="background:#4caf50"></span>
+                    <span class="swatch" data-color="#efefef" title="Grey" style="background:#efefef"></span>
+                </div>
+            </div>
+
+            <!-- Background Color -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Page Background</h3>
+                <div class="swatch-row Background-color-list">
+                    <span class="swatch Background-default-color" data-color="#f5f0e8" title="Cream"
+                        style="background:#f5f0e8"></span>
+                    <span class="swatch" data-color="#ffffff" title="White"
+                        style="background:#ffffff;border:1px solid #ccc"></span>
+                    <span class="swatch" data-color="#ff9800" title="Orange" style="background:#ff9800"></span>
+                    <span class="swatch" data-color="#e91e63" title="Pink" style="background:#e91e63"></span>
+                    <span class="swatch" data-color="#009688" title="Teal" style="background:#009688"></span>
+                    <span class="swatch" data-color="#03a9f4" title="Sky" style="background:#03a9f4"></span>
+                    <span class="swatch" data-color="#000" title="Black" style="background:#000"></span>
+                </div>
+            </div>
+
+            <!-- Text Color -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Text Color</h3>
+                <div class="swatch-row txt-color-list">
+                    <span class="swatch txt-default-color" data-color="#000" title="Black"
+                        style="background:#000"></span>
+                    <span class="swatch" data-color="#fff" title="White"
+                        style="background:#fff;border:1px solid #ccc"></span>
+                    <span class="swatch" data-color="#FFE000" title="Yellow" style="background:#FFE000"></span>
+                </div>
+            </div>
+
+            <!-- Bomboclaat -->
+            <div class="settings-section Bomboclaat-section">
+                <h3 class="settings-section-title">BOMBOCLAAT</h3>
+                <button type="button" class="BOMBOCLAAT">
+                    <span>BOMBOCLAAT 💥</span>
+                </button>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- ── Header ────────────────────────────────────────────────────────── -->
+    <header class="chat-header">
+        <div class="dm-opponent">
+            <img class="opp-avatar" id="opp-avatar" src="../images/avatar_1.jpg" alt="">
+            <span class="opp-name" id="opp-name">Stranger</span>
+        </div>
+        <div class="header-right">
+            <span class="rtc-status connecting" id="rtc-status">Connecting…</span>
+        </div>
+    </header>
+
+    <div class="dm-banner">⚡ 1v1 · <span id="p2p-label">P2P via WebRTC</span> · messages are private</div>
+    <div class="connection-msg-box"></div>
+
+    <ul id="messages"></ul>
+
+    <!-- ── Form ──────────────────────────────────────────────────────────── -->
+    <form id="form" action="">
+        <input id="input" autocomplete="off" placeholder="Type a message…" />
+        <input type="file" id="send-file" class="hidden-file-input">
+
+        <div class="send-file-btn" id="dm-file-btn" title="Attach file">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+            </svg>
+        </div>
+
+        <button type="button" class="send" title="Send">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 96 96">
+                <path fill="currentColor" d="M 8.02 15.91 C 7.96 13.23 11.20 11.05 13.63 12.40
+                C 37.43 22.91 61.21 33.48 84.98 44.06 C 86.96 44.72 88.47 46.82 87.86 48.94
+                C 87.36 51.33 84.73 52.01 82.83 52.92 C 59.74 63.15 36.68 73.43 13.58 83.63
+                C 11.17 84.89 7.90 82.77 8.02 80.08 C 7.98 72.69 7.99 65.31 8.01 57.93
+                C 7.83 55.67 9.78 53.58 12.05 53.61 C 30.23 51.87 48.38 49.83 66.57 48.24
+                C 66.60 48.12 66.65 47.89 66.68 47.77 C 48.46 46.18 30.27 44.13 12.06 42.39
+                C 9.79 42.41 7.82 40.32 8.01 38.06 C 8.00 30.68 7.98 23.30 8.02 15.91 Z" />
+            </svg>
+        </button>
+
+        <button type="button" class="recordBtn" title="Record voice">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24">
+                <rect x="8" y="2" width="8" height="12" rx="4" fill="currentColor" />
+                <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 10c0 3.866 3.134 7 7 7s7-3.134 7-7" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                    <line x1="9" y1="22" x2="15" y2="22" />
+                </g>
+            </svg>
+        </button>
+    </form>
+
+    <audio src="../audio/send.mp3" class="send-sound"></audio>
+    <audio src="../audio/recourdStart.mp3" class="recording"></audio>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../JS/dm.js"></script>
+
+    <script src="../JS/settings.js"></script>
+</body>
+
+</html>

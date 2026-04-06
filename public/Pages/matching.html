@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding Match…</title>
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/matching-page.css">
+    <style>
+    *,
+    *::before,
+    *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    :root {
+    --yellow: #FFE000;
+    --red: #e63329;
+    --dark: #0a0a0a;
+    }
+
+    html,
+    body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--dark);
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    }
+
+    body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+    linear-gradient(rgba(255, 224, 0, .022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 224, 0, .022) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+    }
+
+    /* ─── SEARCHING ─────────────────────────────────────────── */
+    #searching {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    z-index: 10;
+    transition: opacity .4s ease;
+    }
+
+    .orbit-wrap {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    }
+
+    .orbit-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 224, 0, .35);
+    animation: orbit-pulse 2.6s ease-in-out infinite;
+    }
+
+    .orbit-ring:nth-child(2) {
+    inset: -24px;
+    animation-delay: .7s;
+    border-color: rgba(255, 224, 0, .2);
+    }
+
+    .orbit-ring:nth-child(3) {
+    inset: -50px;
+    animation-delay: 1.4s;
+    border-color: rgba(255, 224, 0, .1);
+    }
+
+    @keyframes orbit-pulse {
+
+    0%,
+    100% {
+    transform: scale(1);
+    opacity: .7;
+    }
+
+    50% {
+    transform: scale(1.04);
+    opacity: 1;
+    }
+    }
+
+    .orbit-dash {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 224, 0, .15);
+    animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin {
+    to {
+    transform: rotate(360deg);
+    }
+    }
+
+    .center-avatar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--yellow);
+    box-shadow: 0 0 0 5px rgba(255, 224, 0, .12), 0 0 40px rgba(255, 224, 0, .25);
+    }
+
+    .center-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    }
+
+    .center-avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 0%, rgba(255, 224, 0, .08) 50%, transparent 100%);
+    background-size: 100% 8px;
+    animation: scan 2s linear infinite;
+    }
+
+    @keyframes scan {
+    to {
+    background-position: 0 100px;
+    }
+    }
+
+    .search-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    letter-spacing: .2em;
+    color: var(--yellow);
+    line-height: 1;
+    text-align: center;
+    }
+
+    .dot-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    }
+
+    .dot-row span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--yellow);
+    animation: dot-bounce 1.5s ease-in-out infinite;
+    }
+
+    .dot-row span:nth-child(2) {
+    animation-delay: .2s;
+    }
+
+    .dot-row span:nth-child(3) {
+    animation-delay: .4s;
+    }
+
+    @keyframes dot-bounce {
+
+    0%,
+    80%,
+    100% {
+    transform: translateY(0);
+    opacity: .35;
+    }
+
+    40% {
+    transform: translateY(-9px);
+    opacity: 1;
+    }
+    }
+
+    .search-sub {
+    margin-top: 12px;
+    font-size: .7rem;
+    letter-spacing: .12em;
+    color: rgba(255, 255, 255, .3);
+    text-transform: uppercase;
+    text-align: center;
+    }
+
+    .cancel-btn {
+    padding: 11px 32px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .15);
+    color: rgba(255, 255, 255, .4);
+    font-family: 'Space Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color .2s, color .2s;
+    }
+
+    .cancel-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+    }
+
+    /* ─── VS SCREEN ─────────────────────────────────────────── */
+    #vs-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    z-index: 20;
+    overflow: hidden;
+    }
+
+    #vs-screen.show {
+    display: flex;
+    }
+
+    /* Dramatic diagonal bg slashes */
+    #vs-screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+    linear-gradient(110deg,
+    rgba(255, 224, 0, .07) 0%, transparent 42%,
+    transparent 58%, rgba(230, 51, 41, .07) 100%);
+    pointer-events: none;
+    }
+
+    /* Second slash for more depth */
+    #vs-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+    linear-gradient(250deg,
+    rgba(255, 224, 0, .03) 0%, transparent 35%,
+    transparent 65%, rgba(230, 51, 41, .03) 100%);
+    pointer-events: none;
+    }
+
+    /* ── Hidden SVG filter defs ────────────────────────────── */
+    .elec-filter-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    }
+
+    /* ── Canvas lightning overlay ──────────────────────────── */
+    #vs-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+    }
+
+    /* ── Fighter panels ────────────────────────────────────── */
+    .fighter {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 24px 12px;
+    position: relative;
+    z-index: 6;
+    }
+
+    .fighter-left {
+    transform: translateX(-140%);
+    }
+
+    .fighter-right {
+    transform: translateX(140%);
+    }
+
+    .fighter-left.enter {
+    animation: enter-left .55s cubic-bezier(.22, 1, .36, 1) forwards;
+    }
+
+    .fighter-right.enter {
+    animation: enter-right .55s cubic-bezier(.22, 1, .36, 1) forwards;
+    }
+
+    @keyframes enter-left {
+    to {
+    transform: translateX(0);
+    }
+    }
+
+    @keyframes enter-right {
+    to {
+    transform: translateX(0);
+    }
+    }
+
+    /* ── Avatar ring wrapper ───────────────────────────────── */
+    .avatar-ring {
+    position: relative;
+    width: clamp(110px, 22vw, 160px);
+    height: clamp(110px, 22vw, 160px);
+    }
+
+    .avatar-ring img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 2;
+    }
+
+    /* Electric SVG border overlay */
+    .elec-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140%;
+    height: 140%;
+    transform: translate(-50%, -50%);
+    overflow: visible;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity .3s;
+    }
+
+    .elec-svg.active {
+    opacity: 1;
+    }
+
+    .fighter-left .elec-circle {
+    stroke: var(--yellow);
+    fill: none;
+    stroke-width: 3;
+    }
+
+    .fighter-right .elec-circle {
+    stroke: var(--red);
+    fill: none;
+    stroke-width: 3;
+    }
+
+    .elec-glow {
+    fill: none;
+    stroke-width: 10;
+    opacity: .3;
+    }
+
+    .fighter-left .elec-glow {
+    stroke: var(--yellow);
+    filter: blur(6px);
+    }
+
+    .fighter-right .elec-glow {
+    stroke: var(--red);
+    filter: blur(6px);
+    }
+
+    /* Subtle pulsing ring BEHIND the image */
+    .avatar-ring::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    z-index: 1;
+    }
+
+    .fighter-left .avatar-ring::before {
+    border: 2px solid rgba(255, 224, 0, .4);
+    box-shadow: 0 0 20px rgba(255, 224, 0, .3), 0 0 50px rgba(255, 224, 0, .15);
+    animation: pulse-yellow 2s ease-in-out infinite;
+    }
+
+    .fighter-right .avatar-ring::before {
+    border: 2px solid rgba(230, 51, 41, .4);
+    box-shadow: 0 0 20px rgba(230, 51, 41, .3), 0 0 50px rgba(230, 51, 41, .15);
+    animation: pulse-red 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-yellow {
+
+    0%,
+    100% {
+    box-shadow: 0 0 20px rgba(255, 224, 0, .3), 0 0 50px rgba(255, 224, 0, .15);
+    }
+
+    50% {
+    box-shadow: 0 0 35px rgba(255, 224, 0, .6), 0 0 80px rgba(255, 224, 0, .3);
+    }
+    }
+
+    @keyframes pulse-red {
+
+    0%,
+    100% {
+    box-shadow: 0 0 20px rgba(230, 51, 41, .3), 0 0 50px rgba(230, 51, 41, .15);
+    }
+
+    50% {
+    box-shadow: 0 0 35px rgba(230, 51, 41, .6), 0 0 80px rgba(230, 51, 41, .3);
+    }
+    }
+
+    /* ── Fighter name & tag ────────────────────────────────── */
+    .fighter-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.3rem, 4vw, 1.9rem);
+    letter-spacing: .14em;
+    text-align: center;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0;
+    }
+
+    .fighter-left .fighter-name {
+    color: var(--yellow);
+    }
+
+    .fighter-right .fighter-name {
+    color: var(--red);
+    }
+
+    .fighter-name.show {
+    animation: fade-up .35s .05s ease forwards;
+    }
+
+    .fighter-tag {
+    font-size: .55rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid currentColor;
+    opacity: 0;
+    }
+
+    .fighter-left .fighter-tag {
+    color: rgba(255, 224, 0, .5);
+    }
+
+    .fighter-right .fighter-tag {
+    color: rgba(230, 51, 41, .5);
+    }
+
+    .fighter-tag.show {
+    animation: fade-in .3s .1s ease forwards;
+    }
+
+    /* ── VS center ─────────────────────────────────────────── */
+    .vs-center {
+    width: clamp(60px, 12vw, 100px);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 7;
+    }
+
+    .vs-word {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    line-height: 1;
+    letter-spacing: .04em;
+    color: #fff;
+    text-shadow: 0 0 18px #fff, 0 0 50px rgba(255, 255, 255, .4);
+    opacity: 0;
+    }
+
+    .vs-word.pop {
+    animation: vs-pop .4s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    }
+
+    .vs-sub {
+    font-size: .55rem;
+    letter-spacing: .22em;
+    color: rgba(255, 255, 255, .3);
+    text-transform: uppercase;
+    opacity: 0;
+    white-space: nowrap;
+    }
+
+    .vs-sub.show {
+    animation: fade-in .4s ease forwards;
+    }
+
+    #vs-countdown {
+    position: fixed;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: .65rem;
+    letter-spacing: .18em;
+    color: rgba(255, 255, 255, .25);
+    text-transform: uppercase;
+    display: none;
+    }
+
+    /* ─── ROOM FOUND ─────────────────────────────────────────── */
+    #room-found {
+    position: fixed;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    z-index: 20;
+    }
+
+    #room-found.show {
+    display: flex;
+    }
+
+    .room-found-icon {
+    font-size: 4.5rem;
+    filter: drop-shadow(0 0 20px rgba(255, 224, 0, .4));
+    animation: bounce-in .6s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    .room-found-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    letter-spacing: .18em;
+    color: var(--yellow);
+    text-shadow: 0 0 30px rgba(255, 224, 0, .4);
+    animation: fade-up .4s .15s ease both;
+    }
+
+    .room-found-sub {
+    font-size: .68rem;
+    letter-spacing: .15em;
+    color: rgba(255, 255, 255, .3);
+    text-transform: uppercase;
+    animation: fade-in .4s .3s ease both;
+    }
+
+    /* ─── SHARED KEYFRAMES ───────────────────────────────────── */
+    @keyframes fade-up {
+    from {
+    opacity: 0;
+    transform: translateY(12px)
+    }
+
+    to {
+    opacity: 1;
+    transform: none
+    }
+    }
+
+    @keyframes fade-in {
+    to {
+    opacity: 1;
+    }
+    }
+
+    @keyframes bounce-in {
+    from {
+    transform: scale(0) rotate(-15deg);
+    opacity: 0;
+    }
+
+    to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+    }
+    }
+
+    @keyframes vs-pop {
+    0% {
+    opacity: 0;
+    transform: scale(3.5) rotate(-8deg);
+    }
+
+    55% {
+    opacity: 1;
+    transform: scale(.88) rotate(2deg);
+    }
+
+    100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    }
+    }
+
+    /* Flash overlay */
+    .flash-overlay {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    pointer-events: none;
+    animation: flash-out .35s ease forwards;
+    z-index: 999;
+    }
+
+    @keyframes flash-out {
+    0% {
+    opacity: .85
+    }
+
+    100% {
+    opacity: 0
+    }
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Hidden SVG filter definitions for electric border -->
+    <svg class="elec-filter-defs" aria-hidden="true">
+        <defs>
+            <!-- Yellow electric filter (left fighter) -->
+            <filter id="elec-yellow" x="-30%" y="-30%" width="160%" height="160%" colorInterpolationFilters="sRGB">
+                <feTurbulence type="turbulence" baseFrequency="0.04 0.07" numOctaves="8" result="noise1" seed="5">
+                    <animate attributeName="baseFrequency" values="0.04 0.07;0.10 0.04;0.06 0.11;0.04 0.07" dur="1.8s"
+                        repeatCount="indefinite" />
+                    <animate attributeName="seed" values="5;14;3;9;5" dur="3.6s" repeatCount="indefinite" />
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="noise1" scale="12" xChannelSelector="R" yChannelSelector="G"
+                    result="displaced" />
+            </filter>
+
+            <!-- Red electric filter (right fighter) -->
+            <filter id="elec-red" x="-30%" y="-30%" width="160%" height="160%" colorInterpolationFilters="sRGB">
+                <feTurbulence type="turbulence" baseFrequency="0.05 0.09" numOctaves="8" result="noise2" seed="11">
+                    <animate attributeName="baseFrequency" values="0.05 0.09;0.12 0.05;0.08 0.13;0.05 0.09" dur="2.1s"
+                        repeatCount="indefinite" />
+                    <animate attributeName="seed" values="11;7;19;2;11" dur="4.2s" repeatCount="indefinite" />
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="noise2" scale="12" xChannelSelector="R" yChannelSelector="G"
+                    result="displaced" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Searching state -->
+    <section id="searching">
+        <div class="orbit-wrap">
+            <div class="orbit-ring"></div>
+            <div class="orbit-ring"></div>
+            <div class="orbit-ring"></div>
+            <div class="orbit-dash"></div>
+            <div class="center-avatar">
+                <img id="my-avatar-img" src="../images/avatar_1.jpg" alt="You">
+            </div>
+        </div>
+        <div>
+            <div class="search-title">SEARCHING</div>
+            <div class="dot-row"><span></span><span></span><span></span></div>
+            <p class="search-sub" id="search-mode-label">Looking for your match…</p>
+        </div>
+        <button class="cancel-btn" id="cancel-btn">✕ Cancel</button>
+    </section>
+
+    <!-- VS Screen -->
+    <div id="vs-screen">
+        <!-- Canvas for lightning arcs -->
+        <canvas id="vs-canvas"></canvas>
+
+        <div class="fighter fighter-left" id="fighter-left">
+            <div class="fighter-tag" id="left-tag">YOU</div>
+            <div class="avatar-ring" id="left-ring">
+                <img id="left-avatar" src="../images/avatar_1.jpg" alt="">
+                <!-- Electric SVG border -->
+                <svg class="elec-svg" id="elec-svg-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="elec-glow" cx="100" cy="100" r="88" filter="url(#elec-yellow)" />
+                    <circle class="elec-circle" cx="100" cy="100" r="88" filter="url(#elec-yellow)" />
+                </svg>
+            </div>
+            <div class="fighter-name" id="left-name">PLAYER 1</div>
+        </div>
+
+        <div class="vs-center">
+            <div class="vs-word" id="vs-word">VS</div>
+            <div class="vs-sub" id="vs-sub">MATCH FOUND</div>
+        </div>
+
+        <div class="fighter fighter-right" id="fighter-right">
+            <div class="fighter-tag" id="right-tag">OPPONENT</div>
+            <div class="avatar-ring" id="right-ring">
+                <img id="right-avatar" src="../images/avatar_1.jpg" alt="">
+                <svg class="elec-svg" id="elec-svg-right" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="elec-glow" cx="100" cy="100" r="88" filter="url(#elec-red)" />
+                    <circle class="elec-circle" cx="100" cy="100" r="88" filter="url(#elec-red)" />
+                </svg>
+            </div>
+            <div class="fighter-name" id="right-name">PLAYER 2</div>
+        </div>
+    </div>
+
+    <!-- Room Found -->
+    <div id="room-found">
+        <div class="room-found-icon">🏠</div>
+        <div class="room-found-title">ROOM FOUND!</div>
+        <div class="room-found-sub" id="room-found-sub">Entering in 3…</div>
+    </div>
+
+    <div id="vs-countdown">Entering chat in <span id="cd-num">3</span>s…</div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../JS/matching.js"></script>
+</body>
+
+</html>

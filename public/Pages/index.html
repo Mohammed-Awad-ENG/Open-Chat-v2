@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Chat</title>
+    <link rel="stylesheet" href="../CSS/global_style.css">
+    <link class="chat-style" rel="stylesheet" href="../CSS/Neo_brutalism_style.css">
+    <link rel="stylesheet" href="../CSS/Theme_mini_preview.css">
+    <link rel="stylesheet" href="../CSS/globe_style_fix.css">
+    <link rel="icon" href="../images/icon.png" type="image/png">
+    <meta name="description"
+        content="Open Chat - Free online chat platform to connect with friends, join chat rooms, and send messages.">
+    <meta name="keywords" content="chat, online messaging, free chat rooms, quick messaging">
+    <link rel="stylesheet" href="../CSS/index-page.css">
+
+</head>
+
+<body>
+
+    <div id="find-new-room-wrap">
+        <div class="fnr-ring-wrap" id="fnr-ring-wrap" title="Find new room (available after 60s)">
+            <svg class="fnr-ring-svg" viewBox="0 0 52 52">
+                <circle class="fnr-ring-bg" cx="26" cy="26" r="21.33" />
+                <circle class="fnr-ring-fg" id="fnr-ring-fg" cx="26" cy="26" r="21.33" />
+            </svg>
+            <div class="fnr-btn-inner">
+                <span class="fnr-icon">
+
+                    <span class="fnr-cd" id="fnr-cd">60s</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-image"></div>
+
+    <!-- ─── Settings Panel ──────────────────────────────────────────────────── -->
+    <aside class="settings-box">
+
+        <button class="toggle-settings" aria-label="Toggle settings">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 50">
+                <path d="M47.16,21.221l-5.91-0.966c-0.346-1.186-0.819-2.326-1.411-3.405l3.45-4.917
+                c0.279-0.397,0.231-0.938-0.112-1.282l-3.889-3.887c-0.347-0.346-0.893-0.391-1.291-0.104l-4.843,3.481
+                c-1.089-0.602-2.239-1.08-3.432-1.427l-1.031-5.886C28.607,2.35,28.192,2,27.706,2h-5.5
+                c-0.49,0-0.908,0.355-0.987,0.839l-0.956,5.854c-1.2,0.345-2.352,0.818-3.437,1.412l-4.83-3.45
+                c-0.399-0.285-0.942-0.239-1.289,0.106L6.82,10.648c-0.343,0.343-0.391,0.883-0.112,1.28l3.399,4.863
+                c-0.605,1.095-1.087,2.254-1.438,3.46l-5.831,0.971C2.356,21.302,2,21.72,2,22.208v5.5
+                c0,0.485,0.348,0.9,0.825,0.985l5.831,1.034c0.349,1.203,0.831,2.362,1.438,3.46l-3.441,4.813
+                c-0.284,0.397-0.239,0.942,0.106,1.289l3.888,3.891c0.343,0.343,0.884,0.391,1.281,0.112l4.87-3.411
+                c1.093,0.601,2.248,1.078,3.445,1.424l0.976,5.861C21.3,47.647,21.717,48,22.206,48h5.5
+                c0.485,0,0.9-0.348,0.984-0.825l1.045-5.89c1.199-0.353,2.348-0.833,3.43-1.435l4.905,3.441
+                c0.398,0.281,0.938,0.232,1.282-0.111l3.888-3.891c0.346-0.347,0.391-0.894,0.104-1.292l-3.498-4.857
+                c0.593-1.08,1.064-2.222,1.407-3.408l5.918-1.039c0.479-0.084,0.827-0.5,0.827-0.985v-5.5
+                C47.999,21.718,47.644,21.3,47.16,21.221z
+                M25,32c-3.866,0-7-3.134-7-7c0-3.866,3.134-7,7-7s7,3.134,7,7C32,28.866,28.866,32,25,32z" />
+            </svg>
+        </button>
+
+        <div class="settings-scroll-inner">
+
+            <div class="settings-header">
+                <h2 class="settings-title">Settings</h2>
+            </div>
+
+            <!-- Theme Selector -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Theme</h3>
+                <div class="theme-grid">
+
+                    <button class="theme-card active" data-theme="Neo_brutalism_style" onclick="applyTheme(this)">
+                        <div class="theme-preview neo-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Neo Brutal</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="style" onclick="applyTheme(this)">
+                        <div class="theme-preview soft-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Soft Chat</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="retro_futurism" onclick="applyTheme(this)">
+                        <div class="theme-preview rf-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Retro Future</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="glassmorphism" onclick="applyTheme(this)">
+                        <div class="theme-preview gl-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Glass</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="cyberpunk_terminal" onclick="applyTheme(this)">
+                        <div class="theme-preview cp-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Cyberpunk</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="bauhaus" onclick="applyTheme(this)">
+                        <div class="theme-preview bh-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Bauhaus</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="skeuomorphic_paper" onclick="applyTheme(this)">
+                        <div class="theme-preview sk-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Paper</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="game_vibe" onclick="applyTheme(this)">
+                        <div class="theme-preview gv-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Game Vibe</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="neon_noir" onclick="applyTheme(this)">
+                        <div class="theme-preview nn-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Neon Noir</span>
+                    </button>
+
+                    <button class="theme-card" data-theme="lofi_cozy" onclick="applyTheme(this)">
+                        <div class="theme-preview lf-preview">
+                            <div class="tp-header"></div>
+                            <div class="tp-body">
+                                <div class="tp-msg tp-other"></div>
+                                <div class="tp-msg tp-mine"></div>
+                            </div>
+                            <div class="tp-input"></div>
+                        </div>
+                        <span class="theme-name">Lofi Cozy</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Background Image -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Background Image</h3>
+                <div class="bg-btn-row">
+
+                    <button type="button" class="img-toggle-btn random-image img-op">
+                        <svg width="20" height="20" viewBox="0 0 100 100" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="10" width="90" height="80" rx="4" stroke="currentColor" stroke-width="5"
+                                fill="rgba(0,150,200,0.18)" />
+                            <circle cx="30" cy="30" r="8" fill="#FFB74D" stroke="currentColor" stroke-width="3" />
+                            <path d="M5 85 L35 55 L65 85" fill="#2E7D32" stroke="currentColor" stroke-width="4"
+                                stroke-linejoin="round" />
+                            <path d="M25 90 L60 40 L95 90" fill="#4CAF50" stroke="currentColor" stroke-width="5"
+                                stroke-linejoin="round" />
+                        </svg>
+                        <span>Random</span>
+                    </button>
+
+                    <input type="file" id="bg-upload-input" accept="image/*" style="display:none">
+                    <button type="button" class="img-toggle-btn upload-image-btn" id="bgUploadBtn"
+                        title="Upload image from your device"
+                        onclick="document.getElementById('bg-upload-input').click()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        <span>Upload</span>
+                        <span class="clear-img" id="bgClearBtn" title="Remove image">×</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Others Bubble Color -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Others' Bubble Color</h3>
+                <div class="swatch-row others-color-list">
+                    <span class="swatch others-default-color" data-color="#f5f0e8" title="Cream"
+                        style="background:#f5f0e8"></span>
+                    <span class="swatch" data-color="#efefef" title="Light Grey" style="background:#efefef"></span>
+                    <span class="swatch" data-color="#ff9800" title="Orange" style="background:#ff9800"></span>
+                    <span class="swatch" data-color="#e91e63" title="Pink" style="background:#e91e63"></span>
+                    <span class="swatch" data-color="#009688" title="Teal" style="background:#009688"></span>
+                    <span class="swatch" data-color="#03a9f4" title="Sky" style="background:#03a9f4"></span>
+                    <span class="swatch" data-color="#4caf50" title="Green" style="background:#4caf50"></span>
+                </div>
+            </div>
+
+            <!-- My Bubble Color -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Your Bubble Color</h3>
+                <div class="swatch-row my-color-list">
+                    <span class="swatch my-default-color" data-color="#FFE000" title="Yellow"
+                        style="background:#FFE000"></span>
+                    <span class="swatch" data-color="#ff9800" title="Orange" style="background:#ff9800"></span>
+                    <span class="swatch" data-color="#e91e63" title="Pink" style="background:#e91e63"></span>
+                    <span class="swatch" data-color="#009688" title="Teal" style="background:#009688"></span>
+                    <span class="swatch" data-color="#03a9f4" title="Sky" style="background:#03a9f4"></span>
+                    <span class="swatch" data-color="#4caf50" title="Green" style="background:#4caf50"></span>
+                    <span class="swatch" data-color="#efefef" title="Grey" style="background:#efefef"></span>
+                </div>
+            </div>
+
+            <!-- Background Color -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Page Background</h3>
+                <div class="swatch-row Background-color-list">
+                    <span class="swatch Background-default-color" data-color="#f5f0e8" title="Cream"
+                        style="background:#f5f0e8"></span>
+                    <span class="swatch" data-color="#ffffff" title="White"
+                        style="background:#ffffff;border:1px solid #ccc"></span>
+                    <span class="swatch" data-color="#ff9800" title="Orange" style="background:#ff9800"></span>
+                    <span class="swatch" data-color="#e91e63" title="Pink" style="background:#e91e63"></span>
+                    <span class="swatch" data-color="#009688" title="Teal" style="background:#009688"></span>
+                    <span class="swatch" data-color="#03a9f4" title="Sky" style="background:#03a9f4"></span>
+                    <span class="swatch" data-color="#000" title="Black" style="background:#000"></span>
+                </div>
+            </div>
+
+            <!-- Text Color -->
+            <div class="settings-section">
+                <h3 class="settings-section-title">Text Color</h3>
+                <div class="swatch-row txt-color-list">
+                    <span class="swatch txt-default-color" data-color="#000" title="Black"
+                        style="background:#000"></span>
+                    <span class="swatch" data-color="#fff" title="White"
+                        style="background:#fff;border:1px solid #ccc"></span>
+                    <span class="swatch" data-color="#FFE000" title="Yellow" style="background:#FFE000"></span>
+                </div>
+            </div>
+
+            <!-- Bomboclaat -->
+            <div class="settings-section Bomboclaat-section">
+                <h3 class="settings-section-title">BOMBOCLAAT</h3>
+                <button type="button" class="BOMBOCLAAT">
+                    <span>BOMBOCLAAT 💥</span>
+                </button>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- ─── Header ─────────────────────────────────────────────────────────── -->
+    <header class="chat-header">
+        <h1>Open Chat</h1>
+        <div class="header-right">
+            <div class="live-status" id="liveStatus">LIVE</div>
+            <div class="people-btn" id="peopleToggle" title="Who's in the room">
+                <svg class="people-icon" viewBox="0 0 83.864 83.864" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M56.032,41.717c1.413,0.66,2.982,1.041,4.646,1.041c6.074,0,10.996-4.923,10.996-10.997
+                        c0-6.074-4.922-10.996-10.996-10.996c-6.018,0-10.896,4.834-10.988,10.829
+                        C53.157,33.767,55.586,37.446,56.032,41.717z" />
+                    <path d="M65.342,43.508h-9.259c-0.101,3.705-1.681,7.041-4.182,9.438
+                        c6.901,2.053,11.948,8.452,11.948,16.011v3.518c9.143-0.336,14.41-2.926,14.758-3.102
+                        l0.734-0.374h0.078V57.586C79.421,49.823,73.106,43.508,65.342,43.508z" />
+                    <circle cx="42.486" cy="43.113" r="10.997" />
+                    <path d="M47.149,54.859H37.82c-7.764,0-14.08,6.317-14.08,14.08v11.413l0.029,0.179
+                        l0.785,0.246c7.409,2.314,13.847,3.087,19.145,3.087c10.348,0,16.347-2.951,16.717-3.139
+                        l0.735-0.373h0.078V68.939C61.229,61.177,54.912,54.859,47.149,54.859z" />
+                    <path d="M54.844,20.082c3.723-1.699,8.131-1.705,11.941,0.273
+                        c1.329-0.815,2.511-1.917,3.425-3.306c3.343-5.073,1.94-11.891-3.13-15.233
+                        C62.01-1.526,55.19-0.125,51.848,4.947C48.537,9.972,49.889,16.706,54.844,20.082z" />
+                    <path d="M23.189,42.758c2.151,0,4.151-0.628,5.848-1.698
+                        c0.539-3.516,2.424-6.588,5.116-8.68c0.011-0.206,0.03-0.41,0.03-0.618
+                        c0-6.074-4.924-10.996-10.994-10.996c-6.075,0-10.997,4.922-10.997,10.996
+                        C12.192,37.834,17.115,42.758,23.189,42.758z" />
+                    <path d="M33.065,52.946c-2.489-2.386-4.065-5.705-4.18-9.388
+                        c-0.344-0.025-0.684-0.052-1.033-0.052h-9.329c-7.765,0-14.08,6.315-14.08,14.078
+                        v11.413l0.028,0.179l0.787,0.247c5.943,1.856,11.248,2.711,15.855,2.979v-3.446
+                        C21.115,61.398,26.163,54.999,33.065,52.946z" />
+                    <path d="M17.351,20.082c3.722-1.699,8.131-1.705,11.941,0.273
+                        c1.328-0.815,2.51-1.917,3.425-3.306c3.343-5.073,1.94-11.891-3.13-15.233
+                        c-5.072-3.342-11.891-1.941-15.233,3.131C11.042,9.972,12.395,16.706,17.351,20.082z" />
+                    <path d="M47.579,30.347L48.67,1.262H34.962l1.092,29.085H47.579z" />
+                </svg>
+                <span class="people-badge" id="peopleBadge">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ─── People Popup ──────────────────────────────────────────────────── -->
+    <div class="people-popup" id="peoplePopup">
+        <div class="people-popup-header">
+            <span class="people-popup-title">In this room</span>
+            <span class="people-popup-count" id="peopleCountBig">0</span>
+            <button class="people-popup-close" id="peoplePopupClose">✕</button>
+        </div>
+        <ul class="people-list" id="peopleList"></ul>
+    </div>
+
+    <div class="room-msg">⏳ Messages expire after 24h</div>
+    <div class="connection-msg-box"></div>
+
+    <!-- ─── Messages ───────────────────────────────────────────────────────── -->
+    <ul id="messages"></ul>
+    <!-- ─── Form ───────────────────────────────────────────────────────────── -->
+    <form id="form" action="">
+        <input id="input" autocomplete="off" placeholder="Type a message…" />
+        <input type="file" id="send-file" class="hidden-file-input">
+
+        <div class="send-file-btn" title="Attach file">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+            </svg>
+        </div>
+
+        <button type="button" class="send" title="Send">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 96 96">
+                <path fill="currentColor" d="M 8.02 15.91 C 7.96 13.23 11.20 11.05 13.63 12.40
+                C 37.43 22.91 61.21 33.48 84.98 44.06 C 86.96 44.72 88.47 46.82 87.86 48.94
+                C 87.36 51.33 84.73 52.01 82.83 52.92 C 59.74 63.15 36.68 73.43 13.58 83.63
+                C 11.17 84.89 7.90 82.77 8.02 80.08 C 7.98 72.69 7.99 65.31 8.01 57.93
+                C 7.83 55.67 9.78 53.58 12.05 53.61 C 30.23 51.87 48.38 49.83 66.57 48.24
+                C 66.60 48.12 66.65 47.89 66.68 47.77 C 48.46 46.18 30.27 44.13 12.06 42.39
+                C 9.79 42.41 7.82 40.32 8.01 38.06 C 8.00 30.68 7.98 23.30 8.02 15.91 Z" />
+            </svg>
+        </button>
+
+        <button type="button" class="recordBtn" title="Record voice">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24">
+                <rect x="8" y="2" width="8" height="12" rx="4" fill="currentColor" />
+                <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 10c0 3.866 3.134 7 7 7s7-3.134 7-7" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                    <line x1="9" y1="22" x2="15" y2="22" />
+                </g>
+            </svg>
+        </button>
+    </form>
+
+    <audio src="../audio/send.mp3" class="send-sound"></audio>
+    <audio src="../audio/recourdStart.mp3" class="recording"></audio>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../JS/main.js"></script>
+
+    <script src="../JS/settings.js"></script>
+
+    <script>
+
+        (function () {
+            const FNR_CIRC = 134.04; // 2π × 21.33
+
+            const code = localStorage.getItem("roomCode") || "";
+            const isPublic = code.startsWith("pub_");
+            const wrap = document.getElementById("find-new-room-wrap");
+            const ringWrap = document.getElementById("fnr-ring-wrap");
+            const ringFg = document.getElementById("fnr-ring-fg");
+            const cdEl = document.getElementById("fnr-cd");
+
+            if (!isPublic) return; // named rooms: hide both widgets
+            wrap.style.display = "flex";
+
+            let timeLeft = 60;
+            let fnrReady = false;
+
+            const cdInterval = setInterval(() => {
+                timeLeft--;
+                const frac = timeLeft / 60;
+                const offset = FNR_CIRC * (1 - frac);
+
+                ringFg.style.strokeDashoffset = offset;
+                cdEl.textContent = timeLeft > 0 ? timeLeft + "s" : `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" version="1.1"
+                        id="Capa_1" width="20px" height="20px" viewBox="0 0 39.499 39.499" xml:space="preserve">
+                        <g>
+                            <path
+                                d="M38.765,26.274c0.469,0.469,0.732,1.104,0.732,1.77s-0.266,1.299-0.732,1.771l-4.344,4.338   c-0.488,0.486-1.127,0.729-1.77,0.729c-0.641,0-1.277-0.243-1.769-0.731c-0.977-0.978-0.975-2.562,0.003-3.535l0.086-0.086   c-1.162,0.131-2.509,0.24-3.81,0.24c-1.576,0-3.07-0.158-4.047-0.629c-2.313-1.109-4.198-3.5-6.021-6.314   c-1.728,2.701-3.488,5.031-5.604,6.234c-0.998,0.567-2.553,0.76-4.188,0.76c-1.855,0-3.816-0.244-5.191-0.461   c-1.364-0.217-2.295-1.496-2.08-2.859c0.216-1.362,1.49-2.291,2.859-2.08c2.532,0.4,5.493,0.521,6.215,0.254   c1.494-0.854,3.354-3.807,5.056-6.601c-1.548-2.506-3.188-4.955-4.595-5.755c-0.698-0.268-3.912-0.141-6.676,0.297   c-1.361,0.211-2.644-0.716-2.859-2.08c-0.215-1.363,0.716-2.645,2.08-2.859c2.748-0.434,7.695-0.974,9.929,0.297   c1.895,1.078,3.504,3.068,5.061,5.411c1.656-2.449,3.389-4.49,5.471-5.491c1.812-0.869,5.449-0.694,7.976-0.435   c-0.614-0.967-0.506-2.263,0.338-3.107c0.976-0.978,2.558-0.978,3.535-0.002l4.347,4.342c0.469,0.469,0.731,1.104,0.731,1.769   s-0.265,1.3-0.731,1.769l-4.345,4.34c-0.487,0.486-1.127,0.73-1.769,0.73c-0.641,0-1.278-0.244-1.768-0.732   c-0.977-0.978-0.975-2.561,0.002-3.535l0.443-0.444c-2.822-0.371-5.871-0.452-6.627-0.171c-1.426,0.687-3.098,3.106-4.686,5.661   c1.746,2.86,3.646,5.784,5.266,6.562c0.619,0.221,3.197,0.153,5.629-0.136l-0.027-0.026c-0.977-0.976-0.979-2.56-0.002-3.533   c0.975-0.98,2.557-0.979,3.535-0.002L38.765,26.274z" />
+                        </g>
+                    </svg>`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(cdInterval);
+                    activateFnr();
+                }
+            }, 1000);
+
+            function activateFnr() {
+                if (fnrReady) return;
+                fnrReady = true;
+                ringWrap.classList.add("ready");
+                ringFg.style.strokeDashoffset = "0";
+                cdEl.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="currentColor" version="1.1"
+                        id="Capa_1" width="20px" height="20px" viewBox="0 0 39.499 39.499" xml:space="preserve">
+                        <g>
+                            <path
+                                d="M38.765,26.274c0.469,0.469,0.732,1.104,0.732,1.77s-0.266,1.299-0.732,1.771l-4.344,4.338   c-0.488,0.486-1.127,0.729-1.77,0.729c-0.641,0-1.277-0.243-1.769-0.731c-0.977-0.978-0.975-2.562,0.003-3.535l0.086-0.086   c-1.162,0.131-2.509,0.24-3.81,0.24c-1.576,0-3.07-0.158-4.047-0.629c-2.313-1.109-4.198-3.5-6.021-6.314   c-1.728,2.701-3.488,5.031-5.604,6.234c-0.998,0.567-2.553,0.76-4.188,0.76c-1.855,0-3.816-0.244-5.191-0.461   c-1.364-0.217-2.295-1.496-2.08-2.859c0.216-1.362,1.49-2.291,2.859-2.08c2.532,0.4,5.493,0.521,6.215,0.254   c1.494-0.854,3.354-3.807,5.056-6.601c-1.548-2.506-3.188-4.955-4.595-5.755c-0.698-0.268-3.912-0.141-6.676,0.297   c-1.361,0.211-2.644-0.716-2.859-2.08c-0.215-1.363,0.716-2.645,2.08-2.859c2.748-0.434,7.695-0.974,9.929,0.297   c1.895,1.078,3.504,3.068,5.061,5.411c1.656-2.449,3.389-4.49,5.471-5.491c1.812-0.869,5.449-0.694,7.976-0.435   c-0.614-0.967-0.506-2.263,0.338-3.107c0.976-0.978,2.558-0.978,3.535-0.002l4.347,4.342c0.469,0.469,0.731,1.104,0.731,1.769   s-0.265,1.3-0.731,1.769l-4.345,4.34c-0.487,0.486-1.127,0.73-1.769,0.73c-0.641,0-1.278-0.244-1.768-0.732   c-0.977-0.978-0.975-2.561,0.002-3.535l0.443-0.444c-2.822-0.371-5.871-0.452-6.627-0.171c-1.426,0.687-3.098,3.106-4.686,5.661   c1.746,2.86,3.646,5.784,5.266,6.562c0.619,0.221,3.197,0.153,5.629-0.136l-0.027-0.026c-0.977-0.976-0.979-2.56-0.002-3.533   c0.975-0.98,2.557-0.979,3.535-0.002L38.765,26.274z" />
+                        </g>
+                    </svg>`;
+                ringWrap.addEventListener("click", doLeaveAndFindRoom, { once: true });
+            }
+
+            function doLeaveAndFindRoom() {
+                if (typeof socket !== "undefined" && socket?.connected && code) {
+                    socket.emit("leave-dm", { roomId: code });
+                }
+                localStorage.setItem("chatMode", "rooms");
+                localStorage.removeItem("roomCode");
+                window.location.href = "/matching";
+            }
+        })();
+
+    </script>
+    <script src="../JS/invite.js"></script>
+</body>
+
+</html>

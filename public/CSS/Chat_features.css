@@ -1,0 +1,588 @@
+
+/* ═══════════════════════════════════════════════
+   1. MESSAGE LI — base container
+   ═══════════════════════════════════════════════ */
+#messages > li {
+    position: relative !important;
+    overflow: visible !important; 
+    padding-bottom: 22px !important;
+    margin-bottom: 8px !important;
+}
+
+
+#messages li span.meta,
+#messages li.my-message > span.meta {
+    display: flex !important;
+    align-items: baseline !important;
+    flex-wrap: nowrap !important;
+    gap: 5px !important;
+    direction: ltr !important;
+    unicode-bidi: isolate;
+    margin-bottom: 2px;
+}
+
+
+.msg-name {
+    display: inline-block;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    unicode-bidi: isolate;
+}
+
+.meta .time {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+
+.msg-bubble {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    word-break: break-word;
+    unicode-bidi: plaintext;
+}
+
+
+.react-btn {
+    position: absolute;
+    bottom: -11px;
+    right: -11px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1.5px solid rgba(0, 0, 0, 0.18);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    /* Hidden until hover */
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        opacity 0.15s,
+        transform 0.1s,
+        background 0.1s,
+        border-color 0.1s;
+    z-index: 5; /* above bubble content, below overlay/picker */
+    line-height: 1;
+}
+
+.react-btn svg {
+    pointer-events: none;
+    flex-shrink: 0;
+}
+
+/* Reveal on message hover */
+#messages > li:hover .react-btn {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.react-btn:hover {
+    transform: scale(1.2);
+    background: #ffe000;
+    border-color: #111;
+}
+
+.my-message .react-btn {
+    right: auto;
+    left: -11px;
+}
+
+
+.reaction-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+    direction: ltr;
+}
+
+.reaction-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    user-select: none;
+    border: 1.5px solid rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.65);
+    transition:
+        transform 0.1s,
+        background 0.1s;
+}
+
+.reaction-chip:hover {
+    transform: scale(1.08);
+    background: rgba(255, 224, 0, 0.2);
+}
+.reaction-chip.mine {
+    background: rgba(255, 224, 0, 0.5);
+    border-color: #111;
+    font-weight: 700;
+}
+.reaction-chip .rc {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #111;
+}
+
+
+.msg-avatar {
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 4px !important;
+    top: auto !important;
+    transform: none !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50% !important;
+    display: block !important;
+    object-fit: cover !important;
+    border: 2px solid #111;
+    box-shadow: 2px 2px 0 #111;
+    background: #ddd;
+    flex-shrink: 0;
+}
+
+.my-message .msg-avatar {
+    left: auto !important;
+    right: 4px !important;
+    box-shadow: -2px 2px 0 #111 !important;
+}
+
+body:not([data-avatar-pos]) #messages > li,
+body[data-avatar-pos="bottom"] #messages > li {
+    padding-bottom: 22px !important;
+    padding-top: 0 !important;
+}
+
+body:not([data-avatar-pos]) .msg-avatar,
+body[data-avatar-pos="bottom"] .msg-avatar {
+    bottom: 0 !important;
+    left: 4px !important;
+    top: auto !important;
+    transform: none !important;
+}
+
+body:not([data-avatar-pos]) .my-message .msg-avatar,
+body[data-avatar-pos="bottom"] .my-message .msg-avatar {
+    left: auto !important;
+    right: 4px !important;
+}
+
+body[data-avatar-pos="side"] #messages > li {
+    padding-left: 40px !important;
+    padding-right: 0 !important;
+    padding-bottom: 6px !important;
+    padding-top: 6px !important;
+}
+
+body[data-avatar-pos="side"] #messages > li.my-message {
+    padding-left: 0 !important;
+    padding-right: 40px !important;
+}
+
+body[data-avatar-pos="side"] .msg-avatar {
+    bottom: auto !important;
+    top: 50% !important;
+    left: 4px !important;
+    transform: translateY(-50%) !important;
+}
+
+body[data-avatar-pos="side"] .my-message .msg-avatar {
+    left: auto !important;
+    right: 4px !important;
+    transform: translateY(-50%) !important;
+}
+
+body[data-avatar-pos="top"] #messages > li {
+    padding-top: 38px !important;
+    padding-bottom: 6px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+body[data-avatar-pos="top"] .msg-avatar {
+    top: 4px !important;
+    bottom: auto !important;
+    left: 4px !important;
+    transform: none !important;
+}
+
+body[data-avatar-pos="top"] .my-message .msg-avatar {
+    left: auto !important;
+    right: 4px !important;
+}
+
+body[data-avatar-pos="hidden"] .msg-avatar {
+    display: none !important;
+}
+
+body[data-avatar-pos="hidden"] #messages > li {
+    padding-bottom: 4px !important;
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+
+#global-react-picker {
+    position: fixed;
+    z-index: 99999;
+    display: none; /* JS sets to "flex" when open */
+    align-items: center;
+    gap: 2px;
+    padding: 7px 11px;
+    background: #fff;
+    border: 2px solid #111;
+    box-shadow: 4px 4px 0 #111;
+    border-radius: 32px;
+    white-space: nowrap;
+}
+
+#global-react-picker button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    padding: 2px 4px;
+    border-radius: 6px;
+    line-height: 1;
+    transition: transform 0.1s;
+}
+
+#global-react-picker button:hover {
+    transform: scale(1.35);
+}
+
+#global-react-picker button.already {
+    outline: 2.5px solid #ffe000;
+    outline-offset: 1px;
+    border-radius: 6px;
+}
+
+
+.file-send-wrap {
+    position: relative;
+    display: inline-block;
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 260px;
+}
+.file-send-wrap img,
+.file-send-wrap video {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    border-radius: 6px;
+}
+.file-send-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.42);
+    border-radius: 6px;
+}
+.file-send-spinner {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-top-color: #ffe000;
+    animation: cf-spin 0.7s linear infinite;
+}
+@keyframes cf-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.file-send-overlay span {
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.file-nonmedia-send {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.06);
+    min-width: 180px;
+    max-width: 260px;
+}
+.file-nonmedia-send .fnm-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+.file-nonmedia-send .fnm-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+.file-nonmedia-send .fnm-size {
+    font-size: 0.6rem;
+    opacity: 0.5;
+    display: block;
+    margin-top: 1px;
+}
+.file-nonmedia-send .fnm-prog {
+    height: 3px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+.file-nonmedia-send .fnm-bar {
+    height: 100%;
+    background: #ffe000;
+    width: 30%;
+    animation: cf-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes cf-shimmer {
+    0% {
+        width: 5%;
+    }
+    50% {
+        width: 80%;
+    }
+    100% {
+        width: 5%;
+    }
+}
+
+.file-reveal-wrap {
+    position: relative;
+    display: inline-block;
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 260px;
+    cursor: pointer;
+}
+.file-reveal-wrap img,
+.file-reveal-wrap video {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    border-radius: 6px;
+    filter: blur(14px);
+    transform: scale(1.06);
+    transition:
+        filter 0.35s,
+        transform 0.35s;
+}
+.file-reveal-wrap.revealed img,
+.file-reveal-wrap.revealed video {
+    filter: none;
+    transform: none;
+}
+
+.file-reveal-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: opacity 0.25s;
+}
+.file-reveal-wrap.revealed .file-reveal-overlay {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.file-reveal-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    backdrop-filter: blur(4px);
+    transition: transform 0.12s;
+}
+.file-reveal-wrap:hover .file-reveal-circle {
+    transform: scale(1.08);
+}
+.file-reveal-size {
+    color: #fff;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.file-doc-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.06);
+    min-width: 160px;
+    max-width: 260px;
+    text-decoration: none;
+    color: inherit;
+}
+.file-doc-card:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+.file-doc-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+.file-doc-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+.file-doc-size {
+    font-size: 0.6rem;
+    opacity: 0.5;
+    display: block;
+    margin-top: 1px;
+}
+
+/* ═══════════════════════════════════════════════
+   9. AVATAR POSITION SETTINGS GRID
+   ═══════════════════════════════════════════════ */
+.avatar-pos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-top: 6px;
+}
+
+.avatar-pos-btn {
+    padding: 9px 6px;
+    border: 2px solid rgba(0, 0, 0, 0.16);
+    border-radius: 5px;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    transition:
+        border-color 0.15s,
+        background 0.15s;
+    color: inherit;
+}
+.avatar-pos-btn:hover {
+    border-color: rgba(0, 0, 0, 0.4);
+}
+.avatar-pos-btn.active {
+    border-color: #111 !important;
+    background: #ffe000 !important;
+}
+.avatar-pos-btn svg {
+    transition: opacity 0.15s;
+}
+.avatar-pos-btn:not(.active) svg {
+    opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════
+   10. HEADER ADDITIONS
+   ═══════════════════════════════════════════════ */
+#room-cap-pill {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 20px;
+    border: 1.5px solid currentColor;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   11. KICK SYSTEM
+   ═══════════════════════════════════════════════ */
+.kick-toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9000;
+    background: #111;
+    color: #ffe000;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: 2px solid #ffe000;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    box-shadow: 4px 4px 0 #ffe000;
+    pointer-events: none;
+    white-space: nowrap;
+    animation:
+        cf-toast-in 0.2s ease,
+        cf-toast-out 0.3s ease 2.7s forwards;
+}
+@keyframes cf-toast-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+@keyframes cf-toast-out {
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+
+.kick-vote-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.65rem;
+    margin-top: 4px;
+    color: rgba(0, 0, 0, 0.5);
+}
+.kick-vote-bar-track {
+    flex: 1;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+.kick-vote-bar-fill {
+    height: 100%;
+    background: #e63329;
+    border-radius: 2px;
+    transition: width 0.3s;
+}

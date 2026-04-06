@@ -1,0 +1,242 @@
+/* ── Invite button ─────────────────────────── */
+#invite-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    color: currentColor;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 2px solid currentColor;
+    background: transparent;
+    opacity: 0.75;
+    transition:
+        opacity 0.15s,
+        transform 0.12s,
+        background 0.15s;
+    position: relative;
+}
+#invite-btn:hover {
+    opacity: 1;
+    background: rgba(255, 224, 0, 0.12);
+}
+#invite-btn:active {
+    transform: scale(0.95);
+}
+#invite-btn.copied {
+    background: #ffe000;
+    color: #111;
+    border-color: #111;
+    opacity: 1;
+}
+
+/* ── Invite toast ─────────────────────────── */
+#invite-toast {
+    position: fixed;
+    bottom: 84px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 20px;
+    background: #111;
+    color: #ffe000;
+    border: 2px solid #ffe000;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 #ffe000;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition:
+        opacity 0.18s,
+        transform 0.18s;
+}
+#invite-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+#invite-toast .it-icon {
+    font-size: 1rem;
+}
+
+/* ── Invite modal ─────────────────────────── */
+#invite-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 8000;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s;
+}
+#invite-modal.open {
+    opacity: 1;
+    pointer-events: all;
+}
+.invite-modal-card {
+    background: #fff;
+    color: #111;
+    border: 3px solid #111;
+    box-shadow: 8px 8px 0 #111;
+    border-radius: 6px;
+    padding: 28px 28px 24px;
+    width: min(360px, 92vw);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: inv-card-in 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes inv-card-in {
+    from {
+        transform: scale(0.88) translateY(16px);
+        opacity: 0;
+    }
+    to {
+        transform: none;
+        opacity: 1;
+    }
+}
+.invite-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.invite-modal-title {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.invite-modal-close {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.12s;
+    padding: 2px 5px;
+    line-height: 1;
+}
+.invite-modal-close:hover {
+    opacity: 1;
+}
+.invite-modal-desc {
+    font-size: 0.76rem;
+    line-height: 1.5;
+    opacity: 0.55;
+    margin: -6px 0;
+}
+.invite-url-row {
+    display: flex;
+    gap: 0;
+    border: 2px solid #111;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.invite-url-text {
+    flex: 1;
+    padding: 9px 12px;
+    font-size: 0.68rem;
+    font-family: "Space Mono", monospace;
+    background: #f5f0e8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: none;
+    outline: none;
+    cursor: text;
+    min-width: 0;
+}
+.invite-url-copy {
+    padding: 9px 14px;
+    background: #111;
+    color: #ffe000;
+    border: none;
+    cursor: pointer;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.12s;
+}
+.invite-url-copy:hover {
+    background: #222;
+}
+.invite-url-copy.copied-state {
+    background: #2bcc6a;
+    color: #fff;
+}
+.invite-qr-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+#invite-qr-canvas {
+    border: 2px solid #111;
+    border-radius: 4px;
+    image-rendering: pixelated;
+}
+.invite-qr-label {
+    font-size: 0.58rem;
+    opacity: 0.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.invite-share-row {
+    display: flex;
+    gap: 8px;
+}
+.invite-share-btn {
+    flex: 1;
+    padding: 9px 8px;
+    border: 2px solid #111;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition:
+        background 0.12s,
+        transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.invite-share-btn:hover {
+    background: #f5f0e8;
+}
+.invite-share-btn:active {
+    transform: scale(0.96);
+}
+.invite-share-btn.primary {
+    background: #ffe000;
+    border-color: #111;
+    box-shadow: 2px 2px 0 #111;
+}
+.invite-share-btn.primary:hover {
+    background: #ffe900;
+    box-shadow: 4px 4px 0 #111;
+    transform: translate(-1px, -1px);
+}

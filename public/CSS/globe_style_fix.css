@@ -1,0 +1,244 @@
+/* So many css files so little time.       and patient ╰（‵□′）╯ */
+/* --chat-header-height: 56px */
+.room-msg {
+    margin-top: calc(56px + 15px) !important;
+}
+html {
+    scroll-behavior: smooth !important;
+}
+.chat-header h1,
+.chat-header .dm-opponent {
+    margin-left: 46px !important;
+}
+.connection-msg-box {
+    top: 30px !important;
+}
+.overlay > :where(img, iframe) {
+    max-width: 92vw !important;
+    position: relative !important;
+    width: auto !important;
+    border-radius: 0 !important;
+    height: auto !important;
+    /* By the whey this is IMPORTANT! */
+}
+#messages {
+    overflow: hidden;
+}
+._reaction-bar {
+    position: absolute;
+    bottom: -15px;
+}
+#time {
+    white-space: nowrap;
+    /* min-width: 40px; */
+    text-align: center;
+}
+.my-message,
+.other-message {
+    position: relative;
+    margin-bottom: 40px;
+}
+.my-message .avatar,
+.other-message .avatar {
+    position: absolute;
+    bottom: -40px;
+    width: 30px;
+    right: 0;
+}
+
+.overlay {
+    z-index: 10000;
+}
+.overlay img.people-list-avatar {
+    width: auto !important;
+    height: auto !important;
+    border-radius: 0 !important;
+}
+
+/* ─── BOMBOCLAAT ─────────────────────────────────────────────────────── */
+.Bomboclaat-section {
+    margin-top: 100pc;
+}
+.BOMBOCLAAT {
+    display: block;
+    width: calc(100% - 28px);
+    margin: 14px;
+    padding: 12px 8px;
+    border-radius: 999px;
+    border: 4px dashed hotpink;
+    background: linear-gradient(
+        135deg,
+        #ff6ec7,
+        #ffe45e,
+        #6effb4,
+        #6ec6ff,
+        #ff6ec7
+    );
+    background-size: 300% 300%;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    color: #000;
+    cursor: pointer;
+    transform-origin: center bottom;
+    box-shadow:
+        0 0 0 4px black,
+        6px 6px 0 black,
+        0 0 20px hotpink;
+    animation:
+        bombowobble 2.5s ease-in-out infinite,
+        bomborainbow 1.8s linear infinite;
+}
+.BOMBOCLAAT.active {
+    background: linear-gradient(135deg, #ff0000, #ff6ec7, #ff0000);
+    background-size: 300% 300%;
+    border-color: red;
+    border-style: solid;
+    color: #fff;
+    box-shadow:
+        0 0 0 4px black,
+        6px 6px 0 black,
+        0 0 30px red,
+        0 0 60px rgba(255, 0, 0, 0.4);
+    animation:
+        bombowobble 2.5s ease-in-out infinite,
+        bomborainbow 1.8s linear infinite,
+        bomboglow 1s ease-in-out infinite alternate;
+}
+
+@keyframes bomboglow {
+    from {
+        box-shadow:
+            0 0 0 4px black,
+            6px 6px 0 black,
+            0 0 20px red;
+    }
+    to {
+        box-shadow:
+            0 0 0 4px black,
+            6px 6px 0 black,
+            0 0 50px red,
+            0 0 80px rgba(255, 0, 0, 0.5);
+    }
+}
+
+@keyframes bombowobble {
+    0%,
+    100% {
+        transform: rotate(-4deg) scale(1);
+    }
+    20% {
+        transform: rotate(5deg) scale(1.12);
+    }
+    40% {
+        transform: rotate(-3deg) scale(0.94);
+    }
+    60% {
+        transform: rotate(6deg) scale(1.08);
+    }
+    80% {
+        transform: rotate(-5deg) scale(0.97);
+    }
+}
+
+@keyframes bomborainbow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.BOMBOCLAAT:hover {
+    animation:
+        bombofreakout 0.15s steps(1) infinite,
+        bomborainbow 0.4s linear infinite;
+    border-style: solid;
+    border-color: lime;
+    box-shadow:
+        0 0 0 4px black,
+        8px 8px 0 black,
+        0 0 30px lime,
+        0 0 60px yellow;
+    cursor:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='28' font-size='28'%3E👆%3C/text%3E%3C/svg%3E")
+            8 0,
+        pointer;
+}
+
+@keyframes bombofreakout {
+    0% {
+        transform: scale(1.4) rotate(-8deg);
+    }
+    25% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    50% {
+        transform: scale(1.5) rotate(-5deg);
+    }
+    75% {
+        transform: scale(1.3) rotate(7deg);
+    }
+}
+
+.BOMBOCLAAT:active {
+    animation: bombobonk 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    transform: scale(0.7) rotate(720deg);
+}
+
+@keyframes bombobonk {
+    0% {
+        transform: scale(1.4);
+        filter: hue-rotate(0deg) brightness(3);
+    }
+    50% {
+        transform: scale(0.6) rotate(180deg);
+        filter: hue-rotate(180deg) brightness(5);
+    }
+    100% {
+        transform: scale(1) rotate(720deg);
+        filter: hue-rotate(360deg) brightness(1);
+    }
+}
+/* ─── File sending ─────────────────────────────────────────────────────── */
+.file-sending-loader {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 2px;
+}
+.file-sending-loader span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.4;
+    animation: loaderBounce 1s infinite ease-in-out;
+}
+.file-sending-loader span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+.file-sending-loader span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.file-sending-loader small {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    margin-left: 4px;
+}
+@keyframes loaderBounce {
+    0%,
+    80%,
+    100% {
+        transform: scale(1);
+        opacity: 0.4;
+    }
+    40% {
+        transform: scale(1.4);
+        opacity: 1;
+    }
+}

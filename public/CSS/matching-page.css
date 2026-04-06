@@ -1,0 +1,643 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --yellow: #ffe000;
+    --red: #e63329;
+    --dark: #0a0a0a;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--dark);
+    color: #fff;
+    font-family: "Space Mono", monospace;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 224, 0, 0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 224, 0, 0.022) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ─── SEARCHING ─────────────────────────────────────────── */
+#searching {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    z-index: 10;
+    transition: opacity 0.4s ease;
+}
+
+.orbit-wrap {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.orbit-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 224, 0, 0.35);
+    animation: orbit-pulse 2.6s ease-in-out infinite;
+}
+
+.orbit-ring:nth-child(2) {
+    inset: -24px;
+    animation-delay: 0.7s;
+    border-color: rgba(255, 224, 0, 0.2);
+}
+
+.orbit-ring:nth-child(3) {
+    inset: -50px;
+    animation-delay: 1.4s;
+    border-color: rgba(255, 224, 0, 0.1);
+}
+
+@keyframes orbit-pulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.04);
+        opacity: 1;
+    }
+}
+
+.orbit-dash {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 224, 0, 0.15);
+    animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.center-avatar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--yellow);
+    box-shadow:
+        0 0 0 5px rgba(255, 224, 0, 0.12),
+        0 0 40px rgba(255, 224, 0, 0.25);
+}
+
+.center-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.center-avatar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        transparent 0%,
+        rgba(255, 224, 0, 0.08) 50%,
+        transparent 100%
+    );
+    background-size: 100% 8px;
+    animation: scan 2s linear infinite;
+}
+
+@keyframes scan {
+    to {
+        background-position: 0 100px;
+    }
+}
+
+.search-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(2rem, 6vw, 3rem);
+    letter-spacing: 0.2em;
+    color: var(--yellow);
+    line-height: 1;
+    text-align: center;
+}
+
+.dot-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.dot-row span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--yellow);
+    animation: dot-bounce 1.5s ease-in-out infinite;
+}
+
+.dot-row span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot-row span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dot-bounce {
+    0%,
+    80%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.35;
+    }
+
+    40% {
+        transform: translateY(-9px);
+        opacity: 1;
+    }
+}
+
+.search-sub {
+    margin-top: 12px;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.cancel-btn {
+    padding: 11px 32px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.4);
+    font-family: "Space Mono", monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+        border-color 0.2s,
+        color 0.2s;
+}
+
+.cancel-btn:hover {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+/* ─── VS SCREEN ─────────────────────────────────────────── */
+#vs-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    z-index: 20;
+    overflow: hidden;
+}
+
+#vs-screen.show {
+    display: flex;
+}
+
+#vs-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        110deg,
+        rgba(255, 224, 0, 0.07) 0%,
+        transparent 42%,
+        transparent 58%,
+        rgba(230, 51, 41, 0.07) 100%
+    );
+    pointer-events: none;
+}
+
+#vs-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        250deg,
+        rgba(255, 224, 0, 0.03) 0%,
+        transparent 35%,
+        transparent 65%,
+        rgba(230, 51, 41, 0.03) 100%
+    );
+    pointer-events: none;
+}
+
+/* ── Hidden SVG filter defs ────────────────────────────── */
+.elec-filter-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+/* ── Canvas lightning overlay ──────────────────────────– */
+#vs-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* ── Fighter panels ────────────────────────────────────– */
+.fighter {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 24px 12px;
+    position: relative;
+    z-index: 6;
+}
+
+.fighter-left {
+    transform: translateX(-140%);
+}
+
+.fighter-right {
+    transform: translateX(140%);
+}
+
+.fighter-left.enter {
+    animation: enter-left 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.fighter-right.enter {
+    animation: enter-right 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes enter-left {
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes enter-right {
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* ── Avatar ring wrapper ───────────────────────────────- */
+.avatar-ring {
+    position: relative;
+    width: clamp(110px, 22vw, 160px);
+    height: clamp(110px, 22vw, 160px);
+}
+
+.avatar-ring img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+/* Electric SVG border overlay */
+.elec-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140%;
+    height: 140%;
+    transform: translate(-50%, -50%);
+    overflow: visible;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.elec-svg.active {
+    opacity: 1;
+}
+
+.fighter-left .elec-circle {
+    stroke: var(--yellow);
+    fill: none;
+    stroke-width: 3;
+}
+
+.fighter-right .elec-circle {
+    stroke: var(--red);
+    fill: none;
+    stroke-width: 3;
+}
+
+.elec-glow {
+    fill: none;
+    stroke-width: 10;
+    opacity: 0.3;
+}
+
+.fighter-left .elec-glow {
+    stroke: var(--yellow);
+    filter: blur(6px);
+}
+
+.fighter-right .elec-glow {
+    stroke: var(--red);
+    filter: blur(6px);
+}
+
+/* Subtle pulsing ring BEHIND the image */
+.avatar-ring::before {
+    content: "";
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.fighter-left .avatar-ring::before {
+    border: 2px solid rgba(255, 224, 0, 0.4);
+    box-shadow:
+        0 0 20px rgba(255, 224, 0, 0.3),
+        0 0 50px rgba(255, 224, 0, 0.15);
+    animation: pulse-yellow 2s ease-in-out infinite;
+}
+
+.fighter-right .avatar-ring::before {
+    border: 2px solid rgba(230, 51, 41, 0.4);
+    box-shadow:
+        0 0 20px rgba(230, 51, 41, 0.3),
+        0 0 50px rgba(230, 51, 41, 0.15);
+    animation: pulse-red 2s ease-in-out infinite;
+}
+
+@keyframes pulse-yellow {
+    0%,
+    100% {
+        box-shadow:
+            0 0 20px rgba(255, 224, 0, 0.3),
+            0 0 50px rgba(255, 224, 0, 0.15);
+    }
+
+    50% {
+        box-shadow:
+            0 0 35px rgba(255, 224, 0, 0.6),
+            0 0 80px rgba(255, 224, 0, 0.3);
+    }
+}
+
+@keyframes pulse-red {
+    0%,
+    100% {
+        box-shadow:
+            0 0 20px rgba(230, 51, 41, 0.3),
+            0 0 50px rgba(230, 51, 41, 0.15);
+    }
+
+    50% {
+        box-shadow:
+            0 0 35px rgba(230, 51, 41, 0.6),
+            0 0 80px rgba(230, 51, 41, 0.3);
+    }
+}
+
+/* ── Fighter name & tag ────────────────────────────────- */
+.fighter-name {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(1.3rem, 4vw, 1.9rem);
+    letter-spacing: 0.14em;
+    text-align: center;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    opacity: 0;
+}
+
+.fighter-left .fighter-name {
+    color: var(--yellow);
+}
+
+.fighter-right .fighter-name {
+    color: var(--red);
+}
+
+.fighter-name.show {
+    animation: fade-up 0.35s 0.05s ease forwards;
+}
+
+.fighter-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid currentColor;
+    opacity: 0;
+}
+
+.fighter-left .fighter-tag {
+    color: rgba(255, 224, 0, 0.5);
+}
+
+.fighter-right .fighter-tag {
+    color: rgba(230, 51, 41, 0.5);
+}
+
+.fighter-tag.show {
+    animation: fade-in 0.3s 0.1s ease forwards;
+}
+
+/* ── VS center ─────────────────────────────────────────- */
+.vs-center {
+    width: clamp(60px, 12vw, 100px);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 7;
+}
+
+.vs-word {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: #fff;
+    text-shadow:
+        0 0 18px #fff,
+        0 0 50px rgba(255, 255, 255, 0.4);
+    opacity: 0;
+}
+
+.vs-word.pop {
+    animation: vs-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.vs-sub {
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    opacity: 0;
+    white-space: nowrap;
+}
+
+.vs-sub.show {
+    animation: fade-in 0.4s ease forwards;
+}
+
+#vs-countdown {
+    position: fixed;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+    display: none;
+}
+
+/* ─── ROOM FOUND ─────────────────────────────────────────– */
+#room-found {
+    position: fixed;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    z-index: 20;
+}
+
+#room-found.show {
+    display: flex;
+}
+
+.room-found-icon {
+    font-size: 4.5rem;
+    filter: drop-shadow(0 0 20px rgba(255, 224, 0, 0.4));
+    animation: bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.room-found-title {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    letter-spacing: 0.18em;
+    color: var(--yellow);
+    text-shadow: 0 0 30px rgba(255, 224, 0, 0.4);
+    animation: fade-up 0.4s 0.15s ease both;
+}
+
+.room-found-sub {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    animation: fade-in 0.4s 0.3s ease both;
+}
+
+/* ─── SHARED KEYFRAMES ───────────────────────────────────– */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fade-in {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bounce-in {
+    from {
+        transform: scale(0) rotate(-15deg);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1) rotate(0);
+        opacity: 1;
+    }
+}
+
+@keyframes vs-pop {
+    0% {
+        opacity: 0;
+        transform: scale(3.5) rotate(-8deg);
+    }
+
+    55% {
+        opacity: 1;
+        transform: scale(0.88) rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+/* Flash overlay */
+.flash-overlay {
+    position: fixed;
+    inset: 0;
+    background: #fff;
+    pointer-events: none;
+    animation: flash-out 0.35s ease forwards;
+    z-index: 999;
+}
+
+@keyframes flash-out {
+    0% {
+        opacity: 0.85;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
