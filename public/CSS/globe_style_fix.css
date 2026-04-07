@@ -10,6 +10,13 @@ html {
 .chat-header .dm-opponent {
     margin-left: 46px !important;
 }
+#messages > li > span.meta {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    direction: ltr;
+    unicode-bidi: isolate;
+}
 .connection-msg-box {
     top: 30px !important;
 }
